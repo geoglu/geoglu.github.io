@@ -1810,7 +1810,7 @@ new Chart(pieCtx, {
   data: {
     labels: ['Negative', 'Positive', 'Neutral'],
     datasets: [{
-      label: 'Average percentage of each sentiment among all counties',
+      label: 'Average percentage',
       data: [sentimentCounts.Negative, sentimentCounts.Positive, sentimentCounts.Neutral],
       backgroundColor: ['#FF0000', '#00FF00', '#FFFF00']
     }]
@@ -1819,7 +1819,7 @@ new Chart(pieCtx, {
     plugins: {
       title: {
         display: true,
-        text: 'Average percentage of each sentiment among all counties'
+        text: 'Average percentage'
       },
       legend: {
         position: 'left' // Optional: move legend below chart
