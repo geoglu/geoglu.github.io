@@ -1886,19 +1886,46 @@ new Chart(barCtx, {
 
     // Initialize table with all data
     populateTable(data);
+    function populateTable(dataToDisplay) {
+  const tableBody = document.getElementById('data-table-body');
+  tableBody.innerHTML = ''; // Clear current table body
 
-    // Add click event on rows to zoom and center map marker
-    document.querySelectorAll('#data-table-body tr').forEach(row => {
-      row.addEventListener('click', function() {
-        const countyName = this.getAttribute('data-county');
-        const marker = markers[countyName];
-        
-        if (marker) {
-          map.setView(marker.getLatLng(), 10);  // Zoom in and center the map on the marker
-          marker.openPopup();  // Open the marker's popup
-        }
-      });
+  dataToDisplay.forEach(d => {
+    const row = document.createElement('tr');
+    row.setAttribute('data-county', d.County);
+    row.innerHTML = `
+      <td>${d.County}</td>
+      <td>${d.Negative}</td>
+      <td>${d.Positive}</td>
+      <td>${d.Neutral}</td>
+    `;
+
+    // ✅ Attach the click event listener here
+    row.addEventListener('click', function () {
+      const countyName = this.getAttribute('data-county');
+      const marker = markers[countyName];
+      if (marker) {
+        map.setView(marker.getLatLng(), 10);
+        marker.openPopup();
+      }
     });
+
+    tableBody.appendChild(row);
+  });
+}
+
+    // // Add click event on rows to zoom and center map marker
+    // document.querySelectorAll('#data-table-body tr').forEach(row => {
+    //   row.addEventListener('click', function() {
+    //     const countyName = this.getAttribute('data-county');
+    //     const marker = markers[countyName];
+        
+    //     if (marker) {
+    //       map.setView(marker.getLatLng(), 10);  // Zoom in and center the map on the marker
+    //       marker.openPopup();  // Open the marker's popup
+    //     }
+    //   });
+    // });
 
     // Table Sorting (existing functionality)
     document.querySelectorAll('th[data-sort]').forEach(th => {
